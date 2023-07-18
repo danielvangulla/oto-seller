@@ -10,11 +10,11 @@ class UserTest extends TestCase
 {
     use WithFaker;
 
-    private function user()
+    public function userTest()
     {
         return [
-            'name' => 'Unit Test',
-            'email' => 'unit@test.com',
+            'name' => 'User Test',
+            'email' => 'User@test.com',
             'password' => 'password',
             'password_confirmation' => 'password',
         ];
@@ -22,7 +22,7 @@ class UserTest extends TestCase
 
     public function testApiRegister()
     {
-        $user = $this->user();
+        $user = $this->userTest();
         $response = $this->postJson('/api/register', $user);
 
         $response->assertStatus(200)
@@ -43,7 +43,7 @@ class UserTest extends TestCase
 
     public function testApiLogin()
     {
-        $user = $this->user();
+        $user = $this->userTest();
         $response = $this->postJson('/api/login', $user);
 
         $response->assertStatus(200)
