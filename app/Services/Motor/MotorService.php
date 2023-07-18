@@ -10,7 +10,6 @@ use App\Repositories\Motor\MotorIRepository;
 use App\Services\BaseService;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Database\Eloquent\Collection;
@@ -61,7 +60,7 @@ class MotorService extends BaseService implements MotorIService
             $motorData['kendaraan_id'] = $kendaraan->id;
             $motor = $this->motorRepository->create($motorData);
 
-            return $this->motorRepository->getById($motor->id);
+            return $this->getById($motor->id);
         } catch (ModelNotFoundException $exception) {
             $this->errorLog(
                 "Error on createWithKendaraan, Data: " . json_encode($data),
@@ -80,7 +79,10 @@ class MotorService extends BaseService implements MotorIService
     public function getById(string $id): ?Motor
     {
         try {
-            return $this->motorRepository->getById($id);
+            $motor = $this->motorRepository->getById($id);
+            $kendaraan = $this->kendaraanRepository->getById($motor->kendaraan_id);
+            $motor->kendaraan = $kendaraan;
+            return $motor;
         } catch (ModelNotFoundException $exception) {
             $this->errorLog(
                 ">> id: $id",
@@ -110,7 +112,7 @@ class MotorService extends BaseService implements MotorIService
             $kendaraanData = $this->kendaraanOnly($data);
             $this->kendaraanRepository->update($motor->kendaraan_id, $kendaraanData);
 
-            return $this->motorRepository->getById($motor->id);
+            return $this->getById($motor->id);
         } catch (ModelNotFoundException $exception) {
             $this->errorLog(
                 "on Update. ID: $id, Data: " . json_encode($data),

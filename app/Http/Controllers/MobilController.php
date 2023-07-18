@@ -21,7 +21,7 @@ class MobilController extends Controller
         return response()->json([
             'code' => 200,
             'data' => $data
-        ]);
+        ], 200);
     }
 
     public function store(Request $request)
@@ -32,7 +32,7 @@ class MobilController extends Controller
             return response()->json([
                 'code' => 400,
                 'message' => 'Failed to create Mobil.',
-            ], 404);
+            ], 400);
         }
 
         return response()->json([
@@ -47,7 +47,7 @@ class MobilController extends Controller
 
         if (!$data) {
             return response()->json([
-                'code' => 400,
+                'code' => 404,
                 'message' => 'Mobil is not found.',
             ], 404);
         }
@@ -55,7 +55,7 @@ class MobilController extends Controller
         return response()->json([
             'code' => 200,
             'data' => $data
-        ]);
+        ], 200);
     }
 
     public function update(Request $request, string $id)
@@ -66,13 +66,13 @@ class MobilController extends Controller
             return response()->json([
                 'code' => 400,
                 'message' => 'Failed to update Mobil.',
-            ], 404);
+            ], 400);
         }
 
         return response()->json([
-            'code' => 200,
+            'code' => 201,
             'data' => $data
-        ]);
+        ], 201);
     }
 
     public function destroy(string $id)
@@ -83,12 +83,12 @@ class MobilController extends Controller
             return response()->json([
                 'code' => 400,
                 'message' => 'Failed to delete Mobil.'
-            ]);
+            ], 400);
         }
 
         return response()->json([
             'code' => 200,
             'message' => 'Mobil deleted successfully.'
-        ]);
+        ], 200);
     }
 }

@@ -32,7 +32,7 @@ class BaseRepository
 
     public function getById(string $id): Model
     {
-        return $this->model->with('kendaraan')->findOrFail($id);
+        return $this->model->where('_id', $id)->firstOrFail();
     }
 
     public function update(string $id, array $data): Model

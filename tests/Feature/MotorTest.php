@@ -103,7 +103,7 @@ class MotorTest extends TestCase
         $update = $this->withHeaders([
             'Authorization' => 'Bearer ' . $this->token,
         ])->putJson($this->urlMotor . $motorId, $data);
-        $update->assertStatus(200);
+        $update->assertStatus(201);
 
         $delete = $this->withHeaders([
             'Authorization' => 'Bearer ' . $this->token,
