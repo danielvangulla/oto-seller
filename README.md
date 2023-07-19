@@ -232,6 +232,23 @@ Authorization: Bearer ...
 
 
 
+### ADDING STOCK
+
+
+- untuk melakukan Penambahan Stok Kendaraan.
+```
+URL : /api/add-stock/{kendaraan_id}
+Method: PATCH
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer ...
+Payload : {
+    "qty": required|numeric
+}
+```
+
+
+
 ### SALES (Decreased Stock)
 
 
