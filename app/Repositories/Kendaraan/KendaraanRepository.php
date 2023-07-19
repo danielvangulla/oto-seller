@@ -29,6 +29,7 @@ class KendaraanRepository extends BaseRepository implements KendaraanIRepository
 
     public function create(array $data): Kendaraan
     {
+        $data['qty'] = 0;
         return $this->model->create($data);
     }
 

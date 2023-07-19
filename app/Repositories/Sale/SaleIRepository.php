@@ -10,5 +10,9 @@ interface SaleIRepository
 
     public function getByIdWithRelation(string $id);
 
+    public function countSaleByKendaraan(string $id);
+
+    public function countAllSaleByKendaraan();
+
     public function getModelName();
 }

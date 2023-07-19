@@ -44,10 +44,10 @@ Method: POST
 Accept: application/json
 Content-Type: application/json
 Payload : {
-    "name": "",
-    "email": "",
-    "password": "",
-    "password_confirmation": ""
+    "name": required,
+    "email": required,
+    "password": required,
+    "password_confirmation": required
 }
 ```
 
@@ -61,8 +61,8 @@ Method: POST
 Accept: application/json
 Content-Type: application/json
 Payload : {
-  "email": "",
-  "password": ""
+  "email": required,
+  "password": required
 }
 ```
 
@@ -91,6 +91,8 @@ Authorization: Bearer ...
 
 
 
+
+
 ### FIND DATA BY ID
 
 
@@ -114,6 +116,16 @@ Authorization: Bearer ...
 ```
 
 
+- untuk mencari Data Kendaraan by ID.
+```
+URL : /api/kendaraan/{id}
+Method: GET
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer ...
+```
+
+
 
 ### CREATE NEW DATA
 
@@ -126,12 +138,12 @@ Accept: application/json
 Content-Type: application/json
 Authorization: Bearer ...
 Payload : {
-    "mesin": "",
-    "kapasitas_penumpang": "",
-    "tipe": "",
-    "tahun_keluaran": "",
-    "warna": "",
-    "harga": ""
+    "mesin": required,
+    "kapasitas_penumpang": required,
+    "tipe": required,
+    "tahun_keluaran": required,
+    "warna": required,
+    "harga": required
 }
 ```
 
@@ -144,12 +156,12 @@ Accept: application/json
 Content-Type: application/json
 Authorization: Bearer ...
 Payload : {
-    "mesin": "",
-    "tipe_suspensi": "",
-    "tipe_transmisi": "",
-    "tahun_keluaran": "",
-    "warna": "",
-    "harga": ""
+    "mesin": required,
+    "tipe_suspensi": required,
+    "tipe_transmisi": required,
+    "tahun_keluaran": required,
+    "warna": required,
+    "harga": required
 }
 ```
 
@@ -166,12 +178,12 @@ Accept: application/json
 Content-Type: application/json
 Authorization: Bearer ...
 Payload : {
-    "mesin": "",
-    "kapasitas_penumpang": "",
-    "tipe": "",
-    "tahun_keluaran": "",
-    "warna": "",
-    "harga": ""
+    "mesin": required,
+    "kapasitas_penumpang": required,
+    "tipe": required,
+    "tahun_keluaran": required,
+    "warna": required,
+    "harga": required
 }
 ```
 
@@ -184,12 +196,12 @@ Accept: application/json
 Content-Type: application/json
 Authorization: Bearer ...
 Payload : {
-    "mesin": "",
-    "tipe_suspensi": "",
-    "tipe_transmisi": "",
-    "tahun_keluaran": "",
-    "warna": "",
-    "harga": ""
+    "mesin": required,
+    "tipe_suspensi": required,
+    "tipe_transmisi": required,
+    "tahun_keluaran": required,
+    "warna": required,
+    "harga": required
 }
 ```
 
@@ -223,9 +235,51 @@ Authorization: Bearer ...
 ### SALES (Decreased Stock)
 
 
-- untuk melakukan pengurangan Stok (Penjualan).
+- untuk melakukan Penjualan dengan Single Insert.
 ```
-On Progress
+URL : /api/sales
+Method: POST
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer ...
+Payload : {
+    "data": {
+        "kendaraan_id": required,
+        "nama_pembeli": required,
+        "catatan_lain": required,
+        "nomor_rangka": required,
+        "nomor_mesin": required
+    }
+}
+```
+
+
+- untuk melakukan Penjualan dengan Bulk Insert.
+```
+URL : /api/sales
+Method: POST
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer ...
+Payload : {
+    "is_bulk": true,
+    "data": {
+        "head": {
+            "nama_pembeli": required,
+            "catatan_lain": optional
+        },
+        "body": {
+            {
+                "kendaraan_id": required,
+                "nomor_rangka": required,
+                "nomor_mesin": required
+            },
+            {
+                ....
+            }
+        }
+    }
+}
 ```
 
 
@@ -234,13 +288,21 @@ On Progress
 ### REPORTS
 
 
-- untuk melihat laporan Sisa Stok.
+- untuk melihat laporan Sisa Stok Kendaraan.
 ```
-On Progress
+URL : /api/kendaraan
+Method: GET
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer ...
 ```
 
 
 - untuk melihat Laporan Penjualan By ID Kendaraan.
 ```
-On Progress
+URL : /api/sales
+Method: GET
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer ...
 ```

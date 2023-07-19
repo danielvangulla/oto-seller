@@ -14,6 +14,7 @@ use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class SaleService extends BaseService implements SaleIService
@@ -25,6 +26,36 @@ class SaleService extends BaseService implements SaleIService
     {
         $this->saleRepository = $saleRepository;
         $this->kendaraanRepository = $kendaraanRepository;
+    }
+
+    public function getAllByKendaraan(): array
+    {
+        $sales = $this->saleRepository->countAllSaleByKendaraan();
+
+        $data = [];
+        foreach ($sales as $k => $v) {
+            if ($v->terjual > 0) {
+                $data[] = array_merge(
+                    $this->extractKendaraan($v->id),
+                    [
+                        "kendaraan_id" => $v->id,
+                        "terjual" => $v->terjual
+                    ]
+                );
+            }
+        }
+        return $data;
+    }
+
+    private function extractKendaraan($kendaraan_id): array
+    {
+        $data = [];
+        $kendaraan = $this->kendaraanRepository->getById($kendaraan_id)->toArray();
+        foreach ($kendaraan as $k => $v) {
+            $data[$k] = $v;
+        }
+        unset($data['_id'], $data['qty']);
+        return $data;
     }
 
     public function create(array $data): ?Sale
@@ -136,10 +167,9 @@ class SaleService extends BaseService implements SaleIService
     {
         $rules = [
             'kendaraan_id' => 'required',
-            'nama_pembeli' => 'required',
+            'nama_pembeli' => 'string',
             'nomor_rangka' => 'required',
             'nomor_mesin' => 'required',
-            'catatan_lain' => 'required'
         ];
 
         return Validator::make($data, $rules);

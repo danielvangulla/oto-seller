@@ -101,12 +101,12 @@ class MotorTest extends TestCase
         );
 
         $update = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $this->token,
+            'Authorization' => 'Bearer ' . $token,
         ])->putJson($this->urlMotor . $motorId, $data);
         $update->assertStatus(201);
 
         $delete = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $this->token,
+            'Authorization' => 'Bearer ' . $token,
         ])->deleteJson($this->urlMotor . $motorId);
         $delete->assertStatus(200);
     }

@@ -12,6 +12,7 @@ class Kendaraan extends Model
         'tahun_keluaran',
         'warna',
         'harga',
+        'qty',
     ];
 
     protected $hidden = [];

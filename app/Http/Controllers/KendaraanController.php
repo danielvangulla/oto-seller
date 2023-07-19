@@ -40,4 +40,21 @@ class KendaraanController extends Controller
             'data' => $data
         ], 200);
     }
+
+    public function addStock(Request $request, $id)
+    {
+        $data = $this->kendaraanService->addStock($id, $request->all());
+
+        if (!$data) {
+            return response()->json([
+                'code' => 400,
+                'message' => 'Error on Adding Stock.',
+            ], 400);
+        }
+
+        return response()->json([
+            'code' => 200,
+            'data' => $data
+        ], 200);
+    }
 }

@@ -11,8 +11,11 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication, WithFaker;
 
     public $token;
+    protected $urlKendaraan = '/api/kendaraan/';
+    protected $urlAddStock = '/api/add-stock/';
     protected $urlMotor = '/api/motor/';
     protected $urlMobil = '/api/mobil/';
+    protected $urlSales = '/api/sales/';
 
     public function user()
     {

@@ -17,6 +17,16 @@ class SaleController extends Controller
         $this->kendaraanService = $kendaraanService;
     }
 
+    public function index()
+    {
+        $data = $this->saleService->getAllByKendaraan();
+
+        return response()->json([
+            'code' => 200,
+            'data' => $data
+        ], 200);
+    }
+
     public function store(Request $request)
     {
         $isBulk = $request->is_bulk; // If True ? Bulk : Single
@@ -26,12 +36,10 @@ class SaleController extends Controller
         if ($isBulk) {
             // Bulk Insert
             $data = $this->saleService->createWithBulk($requestData);
-            return $data;
         } else {
             // Single Insert
             $data = $this->saleService->create($requestData);
         }
-
 
         if (!$data) {
             return response()->json([

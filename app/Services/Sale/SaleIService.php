@@ -11,4 +11,6 @@ interface SaleIService
     public function createWithBulk(array $data);
 
     public function getByIdWithRelation(string $id);
+
+    public function getAllByKendaraan();
 }
